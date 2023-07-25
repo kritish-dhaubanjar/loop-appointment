@@ -334,9 +334,11 @@ const handleSubmit = async () => {
 
             <p>Need to make a change? Call <u>+977 9702454737</u></p>
 
-            <a role="button" class="btn btn-outline position-absolute text-white float-end confirm" href="/">
+            <a role="button" class="btn btn-outline text-white float-end confirm" href="/">
               Back
             </a>
+
+            <img src="/qr.jpeg" class="img-fluid my-4"/>
           </section>
 
           <section id="time" class="col-lg-3 p-4">
