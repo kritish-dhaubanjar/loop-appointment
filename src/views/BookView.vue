@@ -133,7 +133,7 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <div class="bg-dark min-vw-100 min-vh-100 d-flex align-items-center">
+  <div class="bg-dark min-vw-100 min-vh-100 d-flex align-items-center py-5">
     <section class="w-100">
       <main class="container text-light rounded-3 border border-light-subtle">
         <div class="row">
@@ -142,15 +142,14 @@ const handleSubmit = async () => {
               <img src="/loop.png" class="img-fluid" width="100px" />
             </div>
 
-            <h5>Quick Rehershal Book</h5>
+            <h5>LOOP STUDIO CAFE</h5>
             <p>
-              With an aim of creating a comprehensive service for all kinds of music and delicious
-              needs, staying true to the name LOOP studio cafe, we aim to create a flexible
-              atmospheric space both foodies and musicans as we have delicious food and spaceious
-              reharshal room at the same time.
+              LOOP Rehearhal Room understand that musicians need places to study and practice their craft. This is why we
+              have created a comprehensive suite of music rooms were specially built to be sound-proof and have the best
+              acoustics possible for our both professional and new growing musicians.
             </p>
 
-            <ul class="list-group list-unstyled text-small">
+            <ul class="list-group list-unstyled text-small mb-5">
               <li class="py-1"><i class="bi bi-clock me-1"></i> 60 mins</li>
               <li class="py-1">
                 <i class="bi bi-geo-alt me-1"></i> Chhabahal, Pulchowk (Gateway to Pimbahal),
@@ -158,22 +157,37 @@ const handleSubmit = async () => {
               </li>
               <li class="py-1"><i class="bi bi-globe me-1" /> Asia/Kathmandu</li>
             </ul>
+
+            <h5>RESERVATION REQUIREMENTS</h5>
+            It is the responsibility of all practice room users to adhere to the following requirements:
+            <ul>
+              <li>Request all the members to handle the room gently during session.</li>
+              <li>Practice rooms are available by reservation only.</li>
+              <li>Practice rooms may be reserved up to 3 days in advance, and users are permitted to make same-day
+                reservations. (first come first serve)</li>
+              <li>Practice sessions are limited to 180 minutes maximum (3 hours.)</li>
+              <li>Users are permitted a maximum of four (3) reservations per day.</li>
+              <li>Muscians/Band must abide by practice room reservation times, and may not arrive early or stay late.</li>
+              <li>If a practice room has been previously scheduled but is not actively being used we can scheduled other
+                timeing.</li>
+              <li>Leave an ID with Reception, sign the entrance time and pick up . When finished using the Room, lock the
+                door, leave the key at Reception and sign the exit time.</li>
+              <li>Do not let other people access the Room.</li>
+              <li>Reservation shifts must always be followed and the room should be cleared at least 5 minutes before the
+                end of the reserved time to allow users from the next shift access.</li>
+              <li>For safety reasons, meetings, jam sessions, etc. may not be organized.</li>
+              <li>The following is absolutely forbidden in the Music Room: − Smoking − Use of alcohol and other
+                psychoactive substances − Bringing food and beverages − Bringing glass objects − Bringing other
+                inappropriate objects − Moving tools and materials</li>
+            </ul>
           </section>
-          <section
-            class="col-lg-6 p-4 border-end border-start border-light-subtle position-relative"
-            v-if="step === 0"
-          >
+          <section class="col-lg-6 p-4 border-end border-start border-light-subtle position-relative" v-if="step === 0">
             <div class="d-flex justify-content-between">
               <span class="fs-6 fw-semibold">{{ MONTHS[date.month] }} {{ date.year }}</span>
 
               <div id="chevron">
-                <button
-                  @click="previous"
-                  class="btn rounded-2 border-0"
-                  :disabled="
-                    date.month === new Date().getMonth() && date.year === new Date().getFullYear()
-                  "
-                >
+                <button @click="previous" class="btn rounded-2 border-0" :disabled="date.month === new Date().getMonth() && date.year === new Date().getFullYear()
+                  ">
                   <i class="text-white bi bi-chevron-left" />
                 </button>
 
@@ -193,50 +207,32 @@ const handleSubmit = async () => {
                 <div class="col">FRI</div>
                 <div class="col">SAT</div>
               </div>
-              <div
-                v-for="(week, index) in calendar"
-                :key="index"
-                class="row row-cols-7 my-1 text-white text-center g-2"
-              >
+              <div v-for="(week, index) in calendar" :key="index" class="row row-cols-7 my-1 text-white text-center g-2">
                 <div v-for="day in week" :key="day" class="col">
-                  <button
-                    v-if="day"
-                    @click="setDate(day)"
-                    class="btn btn-outline rounded-3 w-100 py-3 position-relative"
-                    :disabled="
-                      date.month === new Date().getMonth() &&
+                  <button v-if="day" @click="setDate(day)" class="btn btn-outline rounded-3 w-100 py-3 position-relative"
+                    :disabled="date.month === new Date().getMonth() &&
                       date.year === new Date().getFullYear() &&
                       day < new Date().getDate()
-                    "
-                    :class="
-                      active.date.day === day &&
-                      active.date.month === date.month &&
-                      active.date.year === date.year
-                        ? 'bg-white text-dark'
-                        : 'text-white'
-                    "
-                  >
+                      " :class="active.date.day === day &&
+    active.date.month === date.month &&
+    active.date.year === date.year
+    ? 'bg-white text-dark'
+    : 'text-white'
+    ">
                     {{ day }}
 
-                    <span
-                      v-if="
-                        BOOKED_DATES.has(
-                          new Date(date.year, date.month, day).toISOString().split('T')[0]
-                        )
+                    <span v-if="BOOKED_DATES.has(
+                      new Date(date.year, date.month, day).toISOString().split('T')[0]
+                    )
                       "
-                      class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle"
-                    >
+                      class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
                     </span>
                   </button>
                 </div>
               </div>
             </div>
 
-            <button
-              class="btn btn-outline position-absolute text-white float-end confirm"
-              :disabled="!active.time.length"
-              @click="step++"
-            >
+            <button class="btn btn-outline text-white float-end confirm" :disabled="!active.time.length" @click="step++">
               Confirm
             </button>
           </section>
@@ -245,13 +241,8 @@ const handleSubmit = async () => {
             <form class="mb-5 pb-5" @submit.prevent="handleSubmit">
               <div class="mb-3">
                 <label class="form-label fw-semibold">Email address *</label>
-                <input
-                  type="email"
-                  placeholder="kritishdhaubanjar@gmail.com"
-                  class="form-control bg-dark text-white"
-                  v-model="data.email"
-                  required
-                />
+                <input type="email" placeholder="kritishdhaubanjar@gmail.com" class="form-control bg-dark text-white"
+                  v-model="data.email" required />
                 <div class="form-text text-white">
                   We'll never share your email with anyone else.
                 </div>
@@ -259,35 +250,20 @@ const handleSubmit = async () => {
 
               <div class="mb-3">
                 <label class="form-label fw-semibold">Name *</label>
-                <input
-                  type="text"
-                  placeholder="Kritish Dhaubanjar"
-                  class="form-control bg-dark text-white"
-                  required
-                  v-model="data.name"
-                />
+                <input type="text" placeholder="Kritish Dhaubanjar" class="form-control bg-dark text-white" required
+                  v-model="data.name" />
               </div>
 
               <div class="mb-3">
                 <label class="form-label fw-semibold">Name of Band *</label>
-                <input
-                  type="text"
-                  placeholder="Name of Band"
-                  class="form-control bg-dark text-white"
-                  required
-                  v-model="data.band_name"
-                />
+                <input type="text" placeholder="Name of Band" class="form-control bg-dark text-white" required
+                  v-model="data.band_name" />
               </div>
 
               <div class="mb-3">
                 <label class="form-label fw-semibold">Number of members *</label>
-                <input
-                  type="number"
-                  placeholder="Number of members"
-                  class="form-control bg-dark text-white"
-                  required
-                  v-model="data.no_of_members"
-                />
+                <input type="number" placeholder="Number of members" class="form-control bg-dark text-white" required
+                  v-model="data.no_of_members" />
               </div>
 
               <div class="mb-3">
@@ -295,43 +271,24 @@ const handleSubmit = async () => {
 
                 <div class="input-group mb-3">
                   <span class="input-group-text bg-dark text-white">+977</span>
-                  <input
-                    type="number"
-                    placeholder="9843584612"
-                    class="form-control bg-dark text-white"
-                    required
-                    v-model="data.phone_number"
-                  />
+                  <input type="number" placeholder="9843584612" class="form-control bg-dark text-white" required
+                    v-model="data.phone_number" />
                 </div>
               </div>
 
               <div class="mb-3">
-                <label class="form-label fw-semibold"
-                  >Tell us more about your session and how we can help.</label
-                >
-                <textarea
-                  placeholder="Please share anything that will help prepare for your session."
-                  rows="5"
-                  class="form-control bg-dark text-white"
-                  v-model="data.note"
-                />
+                <label class="form-label fw-semibold">Tell us more about your session and how we can help.</label>
+                <textarea placeholder="Please share anything that will help prepare for your session." rows="5"
+                  class="form-control bg-dark text-white" v-model="data.note" />
               </div>
 
-              <button
-                class="btn btn-outline position-absolute text-white float-end cancel confirm"
-                type="button"
-                @click="step--"
-                :disabled="!active.time.length"
-              >
-                Back
+              <button class="btn btn-outline text-white float-end confirm" type="submit" :disabled="!active.time.length">
+                Confirm
               </button>
 
-              <button
-                class="btn btn-outline position-absolute text-white float-end confirm"
-                type="submit"
-                :disabled="!active.time.length"
-              >
-                Confirm
+              <button class="btn btn-outline text-white float-end cancel confirm me-3" type="button" @click="step--"
+                :disabled="!active.time.length">
+                Back
               </button>
             </form>
           </section>
@@ -355,7 +312,7 @@ const handleSubmit = async () => {
                   {{
                     DAYS[new Date(active.date.year, active.date.month, active.date.day).getDay()]
                   }}, {{ MONTHS[active.date.month] }} {{ active.date.day }}, {{ active.date.year
-                  }}<br />
+}}<br />
 
                   {{ active.time.join(', ') }}
                   (Nepal Time)
@@ -377,35 +334,25 @@ const handleSubmit = async () => {
 
             <p>Need to make a change? Call <u>+977 9702454737</u></p>
 
-            <a
-              role="button"
-              class="btn btn-outline position-absolute text-white float-end confirm"
-              href="/"
-            >
+            <a role="button" class="btn btn-outline position-absolute text-white float-end confirm" href="/">
               Back
             </a>
           </section>
 
           <section id="time" class="col-lg-3 p-4">
-            <span class="fs-6 fw-semibold"
-              >{{ DAYS[new Date(active.date.year, active.date.month, active.date.day).getDay()] }},
-              {{ MONTHS[active.date.month] }} {{ active.date.day }}, {{ active.date.year }}</span
-            >
+            <span class="fs-6 fw-semibold">{{ DAYS[new Date(active.date.year, active.date.month,
+              active.date.day).getDay()] }},
+              {{ MONTHS[active.date.month] }} {{ active.date.day }}, {{ active.date.year }}</span>
 
             <ul class="list-unstyled my-3" v-if="step === 0">
               <li v-for="timeSlot in TIME_SLOTS" class="mb-2" :key="timeSlot">
-                <button
-                  v-if="
-                    !BOOKED_SLOTS[
-                      new Date(active.date.year, active.date.month, active.date.day)
-                        .toISOString()
-                        .split('T')[0]
-                    ]?.[timeSlot]
-                  "
-                  class="btn btn-outline-light btn-sm py-2 w-100 bg-dark fw-semibold"
-                  @click="setTime(timeSlot)"
-                  :class="active.time.includes(timeSlot) ? 'border-white' : 'border-light-subtle'"
-                >
+                <button v-if="!BOOKED_SLOTS[
+                  new Date(active.date.year, active.date.month, active.date.day)
+                    .toISOString()
+                    .split('T')[0]
+                ]?.[timeSlot]
+                  " class="btn btn-outline-light btn-sm py-2 w-100 bg-dark fw-semibold" @click="setTime(timeSlot)"
+                  :class="active.time.includes(timeSlot) ? 'border-white' : 'border-light-subtle'">
                   {{ timeSlot }}
                 </button>
 
@@ -415,31 +362,29 @@ const handleSubmit = async () => {
                     <h6 class="card-title">
                       {{
                         BOOKED_SLOTS[
-                          new Date(active.date.year, active.date.month, active.date.day)
-                            .toISOString()
-                            .split('T')[0]
+                        new Date(active.date.year, active.date.month, active.date.day)
+                          .toISOString()
+                          .split('T')[0]
                         ]?.[timeSlot]?.['band_name']
                       }}
                     </h6>
                     <p class="card-text">
                       {{
                         BOOKED_SLOTS[
-                          new Date(active.date.year, active.date.month, active.date.day)
-                            .toISOString()
-                            .split('T')[0]
+                        new Date(active.date.year, active.date.month, active.date.day)
+                          .toISOString()
+                          .split('T')[0]
                         ]?.[timeSlot]?.['note']
                       }}
                     </p>
-                    <small class="card-text"
-                      >-
+                    <small class="card-text">-
                       {{
                         BOOKED_SLOTS[
                           new Date(active.date.year, active.date.month, active.date.day)
                             .toISOString()
                             .split('T')[0]
                         ]?.[timeSlot]?.['name']
-                      }}</small
-                    >
+                      }}</small>
                   </div>
                 </div>
               </li>
@@ -447,10 +392,7 @@ const handleSubmit = async () => {
 
             <ul class="list-unstyled my-3" v-else>
               <li v-for="timeSlot in active.time" class="mb-2" :key="timeSlot">
-                <button
-                  class="btn btn-outline-light btn-sm py-2 w-100 bg-dark fw-semibold"
-                  disabled
-                >
+                <button class="btn btn-outline-light btn-sm py-2 w-100 bg-dark fw-semibold" disabled>
                   {{ timeSlot }}
                 </button>
               </li>
@@ -479,23 +421,6 @@ section:nth-child(2) {
 }
 
 section:nth-child(4) {
-  height: 700px;
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #000000;
-  }
-
-  &::-webkit-scrollbar {
-    width: 6px;
-    background-color: #000000;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #f5f5f5;
-  }
-
   button {
     &:hover {
       color: var(--bs-white) !important;
@@ -560,5 +485,4 @@ span {
 
 .col {
   width: calc(100% / 7) !important;
-}
-</style>
+}</style>
