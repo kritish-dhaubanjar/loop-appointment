@@ -120,9 +120,7 @@ const handleSubmit = async () => {
     body: JSON.stringify({
       data: {
         ...data,
-        reservation_date: new Date(active.date.year, active.date.month, active.date.day)
-          .toISOString()
-          .split('T')[0],
+        reservation_date: new Date(active.date.year, active.date.month, active.date.day).toLocaleDateString('fr-CA'),
         reservation_time: active.time
       }
     })
@@ -222,7 +220,7 @@ const handleSubmit = async () => {
                     {{ day }}
 
                     <span v-if="BOOKED_DATES.has(
-                      new Date(date.year, date.month, day).toISOString().split('T')[0]
+                      new Date(date.year, date.month, day).toLocaleDateString('fr-CA')
                     )
                       "
                       class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
@@ -338,7 +336,7 @@ const handleSubmit = async () => {
               Back
             </a>
 
-            <img src="/qr.jpeg" class="img-fluid my-4"/>
+            <img src="/qr.jpeg" class="img-fluid my-4" />
           </section>
 
           <section id="time" class="col-lg-3 p-4">
@@ -349,9 +347,7 @@ const handleSubmit = async () => {
             <ul class="list-unstyled my-3" v-if="step === 0">
               <li v-for="timeSlot in TIME_SLOTS" class="mb-2" :key="timeSlot">
                 <button v-if="!BOOKED_SLOTS[
-                  new Date(active.date.year, active.date.month, active.date.day)
-                    .toISOString()
-                    .split('T')[0]
+                  new Date(active.date.year, active.date.month, active.date.day).toLocaleDateString('fr-CA')
                 ]?.[timeSlot]
                   " class="btn btn-outline-light btn-sm py-2 w-100 bg-dark fw-semibold" @click="setTime(timeSlot)"
                   :class="active.time.includes(timeSlot) ? 'border-white' : 'border-light-subtle'">
@@ -363,28 +359,21 @@ const handleSubmit = async () => {
                   <div class="card-body">
                     <h6 class="card-title">
                       {{
-                        BOOKED_SLOTS[
-                        new Date(active.date.year, active.date.month, active.date.day)
-                          .toISOString()
-                          .split('T')[0]
-                        ]?.[timeSlot]?.['band_name']
+                        BOOKED_SLOTS[new Date(active.date.year, active.date.month,
+                          active.date.day).toLocaleDateString('fr-CA')]?.[timeSlot]?.['band_name']
                       }}
                     </h6>
                     <p class="card-text">
                       {{
                         BOOKED_SLOTS[
-                        new Date(active.date.year, active.date.month, active.date.day)
-                          .toISOString()
-                          .split('T')[0]
+                        new Date(active.date.year, active.date.month, active.date.day).toLocaleDateString('fr-CA')
                         ]?.[timeSlot]?.['note']
                       }}
                     </p>
                     <small class="card-text">-
                       {{
                         BOOKED_SLOTS[
-                          new Date(active.date.year, active.date.month, active.date.day)
-                            .toISOString()
-                            .split('T')[0]
+                          new Date(active.date.year, active.date.month, active.date.day).toLocaleDateString('fr-CA')
                         ]?.[timeSlot]?.['name']
                       }}</small>
                   </div>
@@ -487,4 +476,5 @@ span {
 
 .col {
   width: calc(100% / 7) !important;
-}</style>
+}
+</style>
