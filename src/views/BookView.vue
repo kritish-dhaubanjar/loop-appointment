@@ -3,21 +3,21 @@ import { reactive, computed, ref, onBeforeMount } from 'vue'
 import { generateCalendar, MONTHS, DAYS } from '../utils/calendar'
 
 const TIME_SLOTS = [
-  '7:00am',
-  '8:00am',
-  '9:00am',
-  '10:00am',
-  '11:00am',
-  '12:00pm',
-  '1:00pm',
-  '2:00pm',
-  '3:00pm',
-  '4:00pm',
-  '5:00pm',
-  '6:00pm',
-  '7:00pm',
-  '8:00pm',
-  '9:00pm'
+  { label: '7:00am - 8:00am', value: '7:00am' },
+  { label: '8:00am - 9:00am', value: '8:00am' },
+  { label: '9:00am - 10:00am', value: '9:00am' },
+  { label: '10:00am - 11:00am', value: '10:00am' },
+  { label: '11:00am - 12:00pm', value: '11:00am' },
+  { label: '12:00pm - 1:00pm', value: '12:00pm' },
+  { label: '1:00pm - 2:00pm', value: '1:00pm' },
+  { label: '2:00pm - 3:00pm', value: '2:00pm' },
+  { label: '3:00pm - 4:00pm', value: '3:00pm' },
+  { label: '4:00pm - 5:00pm', value: '4:00pm' },
+  { label: '5:00pm - 6:00pm', value: '5:00pm' },
+  { label: '6:00pm - 7:00pm', value: '6:00pm' },
+  { label: '7:00pm - 8:00pm', value: '7:00pm' },
+  { label: '8:00pm - 9:00pm', value: '9:00pm' },
+  { label: '9:00pm - 10:00am', value: '10:00pm' },
 ]
 const BOOKED_SLOTS = ref({})
 
@@ -142,7 +142,8 @@ const handleSubmit = async () => {
 
             <h5>LOOP STUDIO CAFE</h5>
             <p>
-              LOOP Rehearhal Room understand that musicians need places to study and practice their craft. This is why we
+              LOOP Rehearhal Room understand that musicians need places to study and practice their craft. This is why
+              we
               have created a comprehensive suite of music rooms were specially built to be sound-proof and have the best
               acoustics possible for our both professional and new growing musicians.
             </p>
@@ -165,13 +166,16 @@ const handleSubmit = async () => {
                 reservations. (first come first serve)</li>
               <li>Practice sessions are limited to 180 minutes maximum (3 hours.)</li>
               <li>Users are permitted a maximum of four (3) reservations per day.</li>
-              <li>Muscians/Band must abide by practice room reservation times, and may not arrive early or stay late.</li>
+              <li>Muscians/Band must abide by practice room reservation times, and may not arrive early or stay late.
+              </li>
               <li>If a practice room has been previously scheduled but is not actively being used we can scheduled other
                 timeing.</li>
-              <li>Leave an ID with Reception, sign the entrance time and pick up . When finished using the Room, lock the
+              <li>Leave an ID with Reception, sign the entrance time and pick up . When finished using the Room, lock
+                the
                 door, leave the key at Reception and sign the exit time.</li>
               <li>Do not let other people access the Room.</li>
-              <li>Reservation shifts must always be followed and the room should be cleared at least 5 minutes before the
+              <li>Reservation shifts must always be followed and the room should be cleared at least 5 minutes before
+                the
                 end of the reserved time to allow users from the next shift access.</li>
               <li>For safety reasons, meetings, jam sessions, etc. may not be organized.</li>
               <li>The following is absolutely forbidden in the Music Room: − Smoking − Use of alcohol and other
@@ -205,24 +209,25 @@ const handleSubmit = async () => {
                 <div class="col">FRI</div>
                 <div class="col">SAT</div>
               </div>
-              <div v-for="(week, index) in calendar" :key="index" class="row row-cols-7 my-1 text-white text-center g-2">
+              <div v-for="(week, index) in calendar" :key="index"
+                class="row row-cols-7 my-1 text-white text-center g-2">
                 <div v-for="day in week" :key="day" class="col">
-                  <button v-if="day" @click="setDate(day)" class="btn btn-outline rounded-3 w-100 py-3 position-relative"
-                    :disabled="date.month === new Date().getMonth() &&
+                  <button v-if="day" @click="setDate(day)"
+                    class="btn btn-outline rounded-3 w-100 py-3 position-relative" :disabled="date.month === new Date().getMonth() &&
                       date.year === new Date().getFullYear() &&
                       day < new Date().getDate()
                       " :class="active.date.day === day &&
-    active.date.month === date.month &&
-    active.date.year === date.year
-    ? 'bg-white text-dark'
-    : 'text-white'
-    ">
+                        active.date.month === date.month &&
+                        active.date.year === date.year
+                        ? 'bg-white text-dark'
+                        : 'text-white'
+                        ">
                     {{ day }}
 
                     <span v-if="BOOKED_DATES.has(
                       new Date(date.year, date.month, day).toLocaleDateString('fr-CA')
                     )
-                      "
+                    "
                       class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
                     </span>
                   </button>
@@ -230,7 +235,8 @@ const handleSubmit = async () => {
               </div>
             </div>
 
-            <button class="btn btn-outline text-white float-end confirm" :disabled="!active.time.length" @click="step++">
+            <button class="btn btn-outline text-white float-end confirm" :disabled="!active.time.length"
+              @click="step++">
               Confirm
             </button>
           </section>
@@ -280,7 +286,8 @@ const handleSubmit = async () => {
                   class="form-control bg-dark text-white" v-model="data.note" />
               </div>
 
-              <button class="btn btn-outline text-white float-end confirm" type="submit" :disabled="!active.time.length">
+              <button class="btn btn-outline text-white float-end confirm" type="submit"
+                :disabled="!active.time.length">
                 Confirm
               </button>
 
@@ -310,7 +317,7 @@ const handleSubmit = async () => {
                   {{
                     DAYS[new Date(active.date.year, active.date.month, active.date.day).getDay()]
                   }}, {{ MONTHS[active.date.month] }} {{ active.date.day }}, {{ active.date.year
-}}<br />
+                  }}<br />
 
                   {{ active.time.join(', ') }}
                   (Nepal Time)
@@ -345,17 +352,17 @@ const handleSubmit = async () => {
               {{ MONTHS[active.date.month] }} {{ active.date.day }}, {{ active.date.year }}</span>
 
             <ul class="list-unstyled my-3" v-if="step === 0">
-              <li v-for="timeSlot in TIME_SLOTS" class="mb-2" :key="timeSlot">
+              <li v-for="{ label, value: timeSlot } in TIME_SLOTS" class="mb-2" :key="timeSlot">
                 <button v-if="!BOOKED_SLOTS[
                   new Date(active.date.year, active.date.month, active.date.day).toLocaleDateString('fr-CA')
                 ]?.[timeSlot]
-                  " class="btn btn-outline-light btn-sm py-2 w-100 bg-dark fw-semibold" @click="setTime(timeSlot)"
+                " class="btn btn-outline-light btn-sm py-2 w-100 bg-dark fw-semibold" @click="setTime(timeSlot)"
                   :class="active.time.includes(timeSlot) ? 'border-white' : 'border-light-subtle'">
-                  {{ timeSlot }}
+                  {{ label }}
                 </button>
 
                 <div v-else class="card text-bg-dark mb-3 w-100">
-                  <div class="card-header text-center fw-semibold">{{ timeSlot }}</div>
+                  <div class="card-header text-center fw-semibold">{{ label }}</div>
                   <div class="card-body">
                     <h6 class="card-title">
                       {{
@@ -373,7 +380,7 @@ const handleSubmit = async () => {
                     <small class="card-text">-
                       {{
                         BOOKED_SLOTS[
-                          new Date(active.date.year, active.date.month, active.date.day).toLocaleDateString('fr-CA')
+                        new Date(active.date.year, active.date.month, active.date.day).toLocaleDateString('fr-CA')
                         ]?.[timeSlot]?.['name']
                       }}</small>
                   </div>
@@ -384,7 +391,7 @@ const handleSubmit = async () => {
             <ul class="list-unstyled my-3" v-else>
               <li v-for="timeSlot in active.time" class="mb-2" :key="timeSlot">
                 <button class="btn btn-outline-light btn-sm py-2 w-100 bg-dark fw-semibold" disabled>
-                  {{ timeSlot }}
+                  {{ TIME_SLOTS.find(({ value }) => value === timeSlot)?.label }}
                 </button>
               </li>
             </ul>
