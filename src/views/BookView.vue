@@ -16,8 +16,8 @@ const TIME_SLOTS = [
   { label: '5:00pm - 6:00pm', value: '5:00pm' },
   { label: '6:00pm - 7:00pm', value: '6:00pm' },
   { label: '7:00pm - 8:00pm', value: '7:00pm' },
-  { label: '8:00pm - 9:00pm', value: '9:00pm' },
-  { label: '9:00pm - 10:00pm', value: '10:00pm' },
+  { label: '8:00pm - 9:00pm', value: '8:00pm' },
+  { label: '9:00pm - 10:00pm', value: '9:00pm' },
 ]
 const BOOKED_SLOTS = ref({})
 
