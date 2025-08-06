@@ -130,6 +130,37 @@ const handleSubmit = async () => {
     })
   })
 
+  await fetch(
+    'https://discord.com/api/webhooks/1402571512757878926/ArP0eqnAN6ZHOYXYYtaOitG6VN_J0wKRvxbgZ7msNm3xJzys6x82m8XCGjmuJrLurTcw',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        content: `Hey, a new booking has been made for the rehearsal room.\n\n**Date:** ${new Date(
+          active.date.year,
+          active.date.month,
+          active.date.day
+        ).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        })}\n**Time:** ${active.time
+          .map((time) => TIME_SLOTS.find((t) => t.value === time).label)
+          .join(', ')}\n**Name:** ${data.name || '-'}\n**Band Name:** ${
+          data.band_name || '-'
+        }\n**Phone Number:** ${data.phone_number || '-'}\n**Email:** ${
+          data.email || '-'
+        }\n**No. of Members:** ${data.no_of_members || '-'}\n**Note**: ${
+          data.note || '-'
+        }\n\nhttps://book.loopstudiocafe.com/`,
+        embeds: null,
+        attachments: []
+      })
+    }
+  )
+
   step.value++
 }
 </script>
@@ -387,7 +418,7 @@ const handleSubmit = async () => {
             <table class="w-100">
               <tr>
                 <td class="fw-bold py-3 pe-4">What</td>
-                <td>Rehershal/Practice Room Session</td>
+                <td>Rehearsal/Practice Room Session</td>
               </tr>
               <tr>
                 <td class="fw-bold py-3 pe-4">When</td>
