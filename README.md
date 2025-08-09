@@ -1,6 +1,6 @@
 # loop-appointment
 
-![image](https://github.com/user-attachments/assets/3a6b7e0a-649a-44be-b871-602e4e300780)
+<img width="1289" height="1679" alt="book loopstudiocafe com_" src="https://github.com/user-attachments/assets/6cc5de01-9a32-4ed6-9342-e30c95401468" />
 
 This template should help get you started developing with Vue 3 in Vite.
 
