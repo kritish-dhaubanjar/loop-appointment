@@ -353,6 +353,7 @@ const handleSubmit = async () => {
               <div class="mb-3">
                 <label class="form-label fw-semibold">Number of members *</label>
                 <input
+                  min="1"
                   type="number"
                   placeholder="Number of members"
                   class="form-control bg-dark text-white"
@@ -367,7 +368,8 @@ const handleSubmit = async () => {
                 <div class="input-group mb-3">
                   <span class="input-group-text bg-dark text-white">+977</span>
                   <input
-                    type="number"
+                    type="tel"
+                    pattern="^9\d{9}$"
                     placeholder="9843584612"
                     class="form-control bg-dark text-white"
                     required
