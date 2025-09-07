@@ -51,6 +51,7 @@ const data = reactive({
 })
 
 const step = ref(0)
+const isSubmitting = ref(false)
 
 // Computed
 const calendar = computed(() => generateCalendar(date))
@@ -112,56 +113,64 @@ onBeforeMount(async () => {
 })
 
 const handleSubmit = async () => {
-  await fetch('https://api.loopstudiocafe.com/api/collections/save/reservations', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      data: {
-        ...data,
-        reservation_date: new Date(
-          active.date.year,
-          active.date.month,
-          active.date.day
-        ).toLocaleDateString('fr-CA'),
-        reservation_time: active.time
-      }
-    })
-  })
+  isSubmitting.value = true
 
-  await fetch(
-    'https://discord.com/api/webhooks/1402571512757878926/ArP0eqnAN6ZHOYXYYtaOitG6VN_J0wKRvxbgZ7msNm3xJzys6x82m8XCGjmuJrLurTcw',
-    {
+  try {
+    await fetch('https://api.loopstudiocafe.com/api/collections/save/reservations', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        content: `Hey, a new booking has been made for the rehearsal room.\n\n**Date:** ${new Date(
-          active.date.year,
-          active.date.month,
-          active.date.day
-        ).toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        })}\n**Time:** ${active.time
-          .map((time) => TIME_SLOTS.find((t) => t.value === time).label)
-          .join(', ')}\n**Name:** ${data.name || '-'}\n**Band Name:** ${
-          data.band_name || '-'
-        }\n**Phone Number:** ${data.phone_number || '-'}\n**Email:** ${
-          data.email || '-'
-        }\n**No. of Members:** ${data.no_of_members || '-'}\n**Note**: ${
-          data.note || '-'
-        }\n\nhttps://book.loopstudiocafe.com/`,
-        embeds: null,
-        attachments: []
+        data: {
+          ...data,
+          reservation_date: new Date(
+            active.date.year,
+            active.date.month,
+            active.date.day
+          ).toLocaleDateString('fr-CA'),
+          reservation_time: active.time
+        }
       })
-    }
-  )
+    })
 
-  step.value++
+    await fetch(
+      'https://discord.com/api/webhooks/1402571512757878926/ArP0eqnAN6ZHOYXYYtaOitG6VN_J0wKRvxbgZ7msNm3xJzys6x82m8XCGjmuJrLurTcw',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          content: `Hey, a new booking has been made for the rehearsal room.\n\n**Date:** ${new Date(
+            active.date.year,
+            active.date.month,
+            active.date.day
+          ).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}\n**Time:** ${active.time
+            .map((time) => TIME_SLOTS.find((t) => t.value === time).label)
+            .join(', ')}\n**Name:** ${data.name || '-'}\n**Band Name:** ${
+            data.band_name || '-'
+          }\n**Phone Number:** ${data.phone_number || '-'}\n**Email:** ${
+            data.email || '-'
+          }\n**No. of Members:** ${data.no_of_members || '-'}\n**Note**: ${
+            data.note || '-'
+          }\n\nhttps://book.loopstudiocafe.com/`,
+          embeds: null,
+          attachments: []
+        })
+      }
+    )
+
+    step.value++
+  } catch (error) {
+    return
+  } finally {
+    isSubmitting.value = false
+  }
 }
 </script>
 
@@ -393,8 +402,14 @@ const handleSubmit = async () => {
               <button
                 class="btn btn-outline text-white float-end confirm"
                 type="submit"
-                :disabled="!active.time.length"
+                :disabled="!active.time.length || isSubmitting"
               >
+                <span
+                  v-if="isSubmitting"
+                  class="spinner-grow spinner-grow-sm"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
                 Confirm
               </button>
 
@@ -453,8 +468,6 @@ const handleSubmit = async () => {
             <a role="button" class="btn btn-outline text-white float-end confirm" href="/">
               Back
             </a>
-
-            <img src="/qr.jpeg" class="img-fluid my-4" />
           </section>
 
           <section id="time" class="col-lg-3 p-4">
