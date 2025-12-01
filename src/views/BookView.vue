@@ -134,6 +134,7 @@ const handleSubmit = async () => {
       })
     })
 
+    /*
     await fetch(
       'https://discord.com/api/webhooks/1402571512757878926/ArP0eqnAN6ZHOYXYYtaOitG6VN_J0wKRvxbgZ7msNm3xJzys6x82m8XCGjmuJrLurTcw',
       {
@@ -164,6 +165,7 @@ const handleSubmit = async () => {
         })
       }
     )
+    */
 
     step.value++
   } catch (error) {
