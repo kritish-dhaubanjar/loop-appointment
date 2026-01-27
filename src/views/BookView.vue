@@ -41,13 +41,15 @@ const active = reactive({
   time: []
 })
 
+const database = JSON.parse(localStorage.getItem('book.loopstudiocafe.com') || "{}")
+
 const data = reactive({
-  name: '',
-  band_name: '',
-  no_of_members: '',
-  phone_number: '',
+  name: database.name || '',
+  band_name: database.name || '',
+  no_of_members: database.no_of_members || '',
+  phone_number: database.phone_number || '',
   note: '',
-  email: ''
+  email: database.email || ''
 })
 
 const step = ref(0)
@@ -127,6 +129,8 @@ onBeforeMount(async () => {
 const handleSubmit = async () => {
   isSubmitting.value = true
 
+  localStorage.setItem('book.loopstudiocafe.com', JSON.stringify(data))
+
   try {
     await fetch('https://api.loopstudiocafe.com/api/collections/save/reservations', {
       method: 'POST',
@@ -199,6 +203,7 @@ const handleSubmit = async () => {
             </div>
 
             <h5>LOOP STUDIO CAFE</h5>
+
             <p>
               LOOP Rehearsal Room understand that musicians need places to study and practice their
               craft. This is why we have created a comprehensive suite of music rooms were specially
