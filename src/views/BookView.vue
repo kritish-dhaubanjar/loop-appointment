@@ -91,7 +91,19 @@ const setTime = (time) => {
 
 onBeforeMount(async () => {
   const reservationsResponse = await fetch(
-    'https://api.loopstudiocafe.com/api/collections/get/reservations'
+    'https://api.loopstudiocafe.com/api/collections/get/reservations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        filter: {
+          reservation_date: {
+            $gte: new Date(new Date().setDate(1)).toLocaleDateString('fr-CA')
+          }
+        }
+      })
+    }
   )
   const { entries: reservationsData } = await reservationsResponse.json()
 
