@@ -202,7 +202,7 @@ const handleSubmit = async () => {
               <img src="/loop.png" class="img-fluid" width="100px" />
             </div>
 
-            <h5>LOOP STUDIO CAFE</h5>
+            <h5>LOOP STATION</h5>
 
             <p>
               LOOP Rehearsal Room understand that musicians need places to study and practice their
@@ -476,7 +476,7 @@ const handleSubmit = async () => {
               </tr>
               <tr>
                 <td class="fw-bold py-3 pe-4">Where</td>
-                <td>Loop Studio Cafe, Chhabahal, Pulchowk (Gateway to Pimbahal), Lalitpur</td>
+                <td>Loop Station, Chhabahal, Pulchowk (Gateway to Pimbahal), Lalitpur</td>
               </tr>
             </table>
 
