@@ -1,6 +1,12 @@
 <script setup>
-import { reactive, computed, ref, onBeforeMount } from 'vue'
+import { reactive, computed, ref, onBeforeMount, onMounted } from 'vue'
 import { generateCalendar, MONTHS, DAYS } from '../utils/calendar'
+
+const shouldLoadVideo = ref(false)
+
+onMounted(() => {
+  shouldLoadVideo.value = window.matchMedia('(min-width: 576px)').matches
+})
 
 const TIME_SLOTS = [
   { label: '7:00am - 8:00am', value: '7:00am' },
@@ -196,7 +202,8 @@ const handleSubmit = async () => {
   <div class="bg-dark min-vw-100 min-vh-100 d-flex align-items-center py-5">
     <div class="video-container">
       <div class="video-overlay"/>
-      <video autoplay loop muted playsinline>
+
+      <video v-if="shouldLoadVideo" autoplay loop muted playsinline preload="auto">
         <source src="/background.mp4" type="video/mp4"/>
       </video>
     </div>
