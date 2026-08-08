@@ -194,6 +194,13 @@ const handleSubmit = async () => {
 
 <template>
   <div class="bg-dark min-vw-100 min-vh-100 d-flex align-items-center py-5">
+    <div class="video-container">
+      <div class="video-overlay"/>
+      <video autoplay loop muted playsinline>
+        <source src="/background.mp4" type="video/mp4"/>
+      </video>
+    </div>
+
     <section class="w-100">
       <main class="container text-light rounded-3 border border-light-subtle">
         <div class="row">
@@ -578,6 +585,10 @@ main {
   background-color: rgb(var(--bs-dark-subtle-rgb));
 }
 
+section {
+  z-index: 1
+}
+
 section:nth-child(2) {
   button {
     background: rgb(var(--bs-light-border-subtle-rgb));
@@ -654,5 +665,28 @@ span {
 
 .col {
   width: calc(100% / 7) !important;
+}
+
+.video-container {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  z-index: 1;
+}
+
+.video-container video {
+  object-fit: cover;
+  object-position: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.video-overlay {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background: black;
+  opacity: 0.8;
 }
 </style>
